@@ -1,31 +1,31 @@
 /**
- *#include "uRTCLib.h"
- * @copyright Naguissa
- * @author Naguissa
- * @email naguissa.com@gmail.com
- * @version 1.0
- * @created 2015-05-07
- * 
- * #include "LiquidCrystal_I2C.h"
- *YWROBOT
- *Compatible with the Arduino IDE 1.0
- *Library version:1.1
- *
- *BME280I2C.h
- *This code records data from the BME280 sensor and provides an API.
- *This file is part of the Arduino BME280 library.
- *Copyright (C) 2016  Tyler Glenn
- *
- *#include "Encoder.h"
- * Encoder Library, for measuring quadrature encoded signals
- * http://www.pjrc.com/teensy/td_libs_Encoder.html
- * Copyright (c) 2011,2013 PJRC.COM, LLC - Paul Stoffregen <paul@pjrc.com>
- * 
- * file Radio.h
- * brief Library header file for the radio libraries to control radio chips.
- * author Matthias Hertel, http://www.mathertel.de
- * copyright Copyright (c) 2014 by Matthias Hertel.
- */
+  #include "uRTCLib.h"
+   @copyright Naguissa
+   @author Naguissa
+   @email naguissa.com@gmail.com
+   @version 1.0
+   @created 2015-05-07
+
+   #include "LiquidCrystal_I2C.h"
+  YWROBOT
+  Compatible with the Arduino IDE 1.0
+  Library version:1.1
+
+  BME280I2C.h
+  This code records data from the BME280 sensor and provides an API.
+  This file is part of the Arduino BME280 library.
+  Copyright (C) 2016  Tyler Glenn
+
+  #include "Encoder.h"
+   Encoder Library, for measuring quadrature encoded signals
+   http://www.pjrc.com/teensy/td_libs_Encoder.html
+   Copyright (c) 2011,2013 PJRC.COM, LLC - Paul Stoffregen <paul@pjrc.com>
+
+   file Radio.h
+   brief Library header file for the radio libraries to control radio chips.
+   author Matthias Hertel, http://www.mathertel.de
+   copyright Copyright (c) 2014 by Matthias Hertel.
+*/
 /// This work
 /// \file sketch_for_Uno.ino
 /// \brief main file
@@ -44,6 +44,8 @@
 #include "Encoder.h"
 #include "radio.h"
 #include "TEA5767.h"
+//#include "SPI.h"
+//#include "Ethernet.h"
 //-----------------------End Include----------------------------------------------
 
 //-----------------------Define----------------------------------------------------
@@ -68,6 +70,12 @@ uRTCLib rtc;
 BME280I2C bme;
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 TEA5767 radio;
+
+//byte mac[] = {
+//  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
+//};
+//IPAddress ip(192, 168, 52, 20);
+//EthernetServer server(80);
 
 volatile bool flag = true; //flag int 1
 volatile bool flag2 = true; //flag int 1
@@ -115,6 +123,15 @@ unsigned long debounceDelay = 50;    // the debounce time; increase if the outpu
 
 
 void setup() {
+  // Only used once, then disabled
+    //rtc.set(0, 47, 21, 1, 27, 2, 17);
+  //  RTCLib::set(byte second, byte minute, byte hour, byte dayOfWeek, byte dayOfMonth, byte month, byte year)
+ // Serial.begin(9600);
+ // while (!Serial) ;
+ // Ethernet.begin(mac, ip);
+ // Serial.print("server is at ");
+ // Serial.println(Ethernet.localIP());
+
   lcd.init();
   lcd.backlight();
 
@@ -149,6 +166,55 @@ void setup() {
 }
 
 void loop() {
+ /* EthernetClient client = server.available();
+  if (client)
+  {
+    Serial.println("new client");
+    boolean currentLineIsBlank = true;
+    while (client.connected())
+    {
+      if (client.available())
+      {
+        char c = client.read();
+        Serial.write(c);
+        if (c == '\n' && currentLineIsBlank)
+        {
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-Type: text/html");
+          client.println("Connection: close");  // the connection will be closed after completion of the response
+          client.println("Refresh: 5");  // refresh the page automatically every 5 sec
+          client.println();
+          client.println("<!DOCTYPE HTML>");
+          client.println("<html>");
+          for (int analogChannel = 0; analogChannel < 6; analogChannel++)
+          {
+            int sensorReading = analogRead(analogChannel);
+            client.print("analog input ");
+            client.print(analogChannel);
+            client.print(" is ");
+            client.print(sensorReading);
+            client.println("<br />");
+          }
+          client.println("</html>");
+          break;
+        }
+        if (c == '\n')
+        {
+          currentLineIsBlank = true;
+        }
+        else if (c != '\r')
+        {
+          currentLineIsBlank = false;
+        }
+      }
+    }
+    delay(1);
+    client.stop();
+    Serial.println("client disconnected");
+  }
+  */
+
+  
   // while(flag);
   if (flag) {
     time_millis_rtc = millis();
