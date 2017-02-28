@@ -58,13 +58,16 @@
 #endif
 #define FIX_BAND RADIO_BAND_FM
 #define FIX_STATION 9350
+#define i2c_lcd_address 0x27
+#define coll 16
+#define row 2
 //------------------------End Define-----------------------------------------------
 
 //------------------------Var------------------------------------------------------
 Encoder myEnc(pin_A, pin_B);
 uRTCLib rtc;
 BME280I2C bme;
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd(i2c_lcd_address, coll, row);
 TEA5767 radio;
 
 

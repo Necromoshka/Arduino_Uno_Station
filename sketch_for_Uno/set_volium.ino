@@ -19,7 +19,6 @@ void set_volium()
       if (volium != 1 && cnt == 0)
       {
         volium = volium + 1;
-        //positions = pos;
         // radio.setVolume(volium);
         cnt++;
       }
@@ -31,14 +30,12 @@ void set_volium()
       if (volium != 0 && cnt == 0)
       {
         volium = volium - 1;
-        // positions = pos;
         // radio.setVolume(volium);
       }
       else cnt--;
     }
     if (volium == 0)
     {
-      //  positions = pos;
       lcd.setCursor(9, 1);
       lcd.print("   ");
       lcd.setCursor(9, 1);
@@ -62,6 +59,3 @@ void set_volium()
   }
   debounce();
 }
-//lcd.setCursor(9,1);
-//lcd.print("Off");
-//lcd.printByte(255);

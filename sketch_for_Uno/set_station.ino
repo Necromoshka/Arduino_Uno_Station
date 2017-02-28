@@ -15,8 +15,7 @@ void set_station()
       positions = newPos;
       if (station != 32)
       {
-        station++;
-        //positions = pos;
+        station++;  
       }
     }
     if (newPos < positions)
@@ -25,7 +24,6 @@ void set_station()
       if (station != 1)
       {
         station--;
-        // positions = pos;
       }
     }
     positions = newPos;
