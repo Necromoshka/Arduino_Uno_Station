@@ -31,7 +31,7 @@
 /// \brief main file
 /// \author Klimets Sergey
 /// \copyright Copyright (c) 2017 by Klimets Sergey.\n
-
+/// \git Branch master
 
 
 //-----------------------Include--------------------------------------------------
