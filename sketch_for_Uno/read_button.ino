@@ -11,26 +11,23 @@ void read_button()
     switch (men)
     {
       case 0:
-        myEnc.write(0);
+        //       myEnc.write(0);
+        enc.set_position(0);
         enc_menu_v();
         bu_fl = true;
         men++;
 
         break;
       case 1:
-        myEnc.write(0);
+        //        myEnc.write(0);
+        enc.set_position(0);
         enc_menu_r();
         bu_fl = true;
         men = 0;
         setstation(station);
 
         break;
-        // case 2:
-        //     bl = !bl;
-        //      lcd.setBacklight(bl);
-        //       men = 0;
-        //       bu_fl = true;
-        //        break;
+
     }
   }
 }

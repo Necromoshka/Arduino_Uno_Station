@@ -4,15 +4,12 @@
 /// \author Klimets Sergey
 /// \copyright Copyright (c) 2017 by Klimets Sergey.\n
 
-//void refresh()
-//{
+void int0()
+{
+  enc.int0();
+}
 
-//  flag = false;
-//}
-//void but_press()
-//{
-
-//        bu_fl = false;
-
-
-//}
+void int1()
+{
+  enc.int1();
+}

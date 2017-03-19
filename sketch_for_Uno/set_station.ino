@@ -6,8 +6,8 @@
 
 void set_station()
 {
-  long newPos = myEnc.read();
-  int cnt = 0;
+  long newPos = enc.get_position(); //myEnc.read();
+ // int cnt = 0;
   if (newPos != positions)
   {
     if (newPos > positions)
@@ -15,8 +15,7 @@ void set_station()
       positions = newPos;
       if (station != 32)
       {
-        station++;
-        //positions = pos;
+        station++;  
       }
     }
     if (newPos < positions)
@@ -25,7 +24,6 @@ void set_station()
       if (station != 1)
       {
         station--;
-        // positions = pos;
       }
     }
     positions = newPos;
