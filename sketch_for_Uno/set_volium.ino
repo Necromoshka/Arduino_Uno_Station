@@ -19,7 +19,7 @@ void set_volium()
       if (volium != 1 && cnt == 0)
       {
         volium = volium + 1;
-        
+
         cnt++;
       }
       else cnt--;
@@ -30,7 +30,7 @@ void set_volium()
       if (volium != 0 && cnt == 0)
       {
         volium = volium - 1;
-        
+
       }
       else cnt--;
     }

@@ -31,7 +31,9 @@
 /// \brief main file
 /// \author Klimets Sergey
 /// \copyright Copyright (c) 2017 by Klimets Sergey.\n
-/// \git Branch master
+
+/// \git Branch Volium_Control
+
 
 
 //-----------------------Include--------------------------------------------------
@@ -63,11 +65,13 @@
 #define i2c_lcd_address 0x27 //Адрес экрана
 #define coll 16 //Кол-во столбцов
 #define row 2 //Кол-во строк
+
 //------------------------End Define-----------------------------------------------
 
 //------------------------Var------------------------------------------------------
 //Encoder myEnc(pin_A, pin_B);
 uRTCLib rtc;
+
 BME280I2C bme; //Датчик погоды
 LiquidCrystal_I2C lcd(i2c_lcd_address, coll, row);//Экран
 TEA5767 radio;//Радио чип TEA
