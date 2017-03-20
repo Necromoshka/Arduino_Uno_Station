@@ -16,11 +16,6 @@
   This file is part of the Arduino BME280 library.
   Copyright (C) 2016  Tyler Glenn
 
-  #include "Encoder.h"
-   Encoder Library, for measuring quadrature encoded signals
-   http://www.pjrc.com/teensy/td_libs_Encoder.html
-   Copyright (c) 2011,2013 PJRC.COM, LLC - Paul Stoffregen <paul@pjrc.com>
-
    file Radio.h
    brief Library header file for the radio libraries to control radio chips.
    author Matthias Hertel, http://www.mathertel.de
@@ -42,17 +37,15 @@
 #include "uRTCLib.h"
 #include "LiquidCrystal_I2C.h"
 #include "BME280I2C.h"
-//#define ENCODER_DO_NOT_USE_INTERRUPTS
-//#include "Encoder.h"
 #include "radio.h"
 #include "TEA5767.h"
 #include "encoder_lib.h"
 //-----------------------End Include----------------------------------------------
 
 //-----------------------Define----------------------------------------------------
-#define pin_A 3 //Pin A Encoder
-#define pin_B 2 //Pin B Encoder
-#define pin_C 4
+#define pin_A 2 //Pin A Encoder
+#define pin_B 3 //Pin B Encoder
+#define pin_C 4 //Pin Button
 #define metric true //metric? для BME280
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args)  write(args); //Для LCD
@@ -69,13 +62,11 @@
 //------------------------End Define-----------------------------------------------
 
 //------------------------Var------------------------------------------------------
-//Encoder myEnc(pin_A, pin_B);
-uRTCLib rtc;
-
+uRTCLib rtc; //Часы
 BME280I2C bme; //Датчик погоды
 LiquidCrystal_I2C lcd(i2c_lcd_address, coll, row);//Экран
 TEA5767 radio;//Радио чип TEA
-Encoder enc(pin_A,pin_B);
+Encoder enc(pin_A,pin_B); //Энкодер
 
 volatile bool flag = true; //flag для часов
 volatile bool flag2 = true; //flag2 для датчика погоды
