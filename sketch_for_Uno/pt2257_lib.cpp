@@ -32,3 +32,8 @@ void pt2257::set_mute(boolean m)
   
 }
 
+void pt_write(uint8_t)
+{
+  
+}
+
