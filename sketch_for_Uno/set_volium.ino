@@ -7,32 +7,24 @@
 void set_volium()
 {
   long newPos = enc.get_position(); //myEnc.read();
-  int cnt = 0;
   if (newPos != positions)
   {
-
-    
-
     if (newPos > positions)
     {
       positions = newPos;
-      if (volium != 1 && cnt == 0)
+      if (volium != 79)
       {
         volium = volium + 1;
-
-        cnt++;
       }
-      else cnt--;
     }
     if (newPos < positions)
     {
       positions = newPos;
-      if (volium != 0 && cnt == 0)
+      if (volium != 0)
       {
         volium = volium - 1;
 
       }
-      else cnt--;
     }
     if (volium == 0)
     {
@@ -49,7 +41,8 @@ void set_volium()
       lcd.setCursor(9, 1);
       lcd.print("   ");
       lcd.setCursor(9, 1);
-      lcd.print("on");
+      //lcd.print("on");
+      lcd.print(volium);
       lcd.setCursor(12, 1);
       lcd.printByte(255);
       //lcd.print(volium);

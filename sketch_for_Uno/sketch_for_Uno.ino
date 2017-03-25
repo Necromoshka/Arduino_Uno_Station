@@ -40,6 +40,7 @@
 #include "radio.h"
 #include "TEA5767.h"
 #include "encoder_lib.h"
+#include "pt2257_lib.h"
 //-----------------------End Include----------------------------------------------
 
 //-----------------------Define----------------------------------------------------
@@ -67,12 +68,13 @@ BME280I2C bme; //Датчик погоды
 LiquidCrystal_I2C lcd(i2c_lcd_address, coll, row);//Экран
 TEA5767 radio;//Радио чип TEA
 Encoder enc(pin_A,pin_B); //Энкодер
+pt2257 dpow; //Регулятор громкости
 
 volatile bool flag = true; //flag для часов
 volatile bool flag2 = true; //flag2 для датчика погоды
 volatile bool bu_fl = true; //bu_fl для кнопки на энкодере
 long positions  = 0;//----------------------------------------------------------------???????????????????
-int volium = 0; //Начальный уровень громкости при 1 -м заходе в меню
+uint8_t volium = 0; //Начальный уровень громкости при 1 -м заходе в меню
 int station = 1; //Начальная станция при 1 - м заходе в меню
 bool mute = true; //Вкл выкл звук на TEA
 
@@ -116,7 +118,7 @@ void setup() {
   // Only used once, then disabled
   //rtc.set(0, 47, 21, 1, 27, 2, 17);
   //  RTCLib::set(byte second, byte minute, byte hour, byte dayOfWeek, byte dayOfMonth, byte month, byte year)
-
+  dpow.init();
   lcd.init();
   lcd.backlight();
 
@@ -147,7 +149,9 @@ void setup() {
   radio.init(); // Включаем чип
   radio.setBandFrequency(FIX_BAND, FIX_STATION); // Устанавливаем частотный диаппазон и частоту
   radio.setMono(mute); // включаем звук
-
+  
+  dpow.set_volium(volium);
+  
   attachInterrupt(0, int0, CHANGE);
   attachInterrupt(1, int1, CHANGE);
 }
