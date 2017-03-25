@@ -46,6 +46,8 @@ void set_volium()
       lcd.setCursor(12, 1);
       lcd.printByte(255);
       //lcd.print(volium);
+
+      dpow.set_volium(volium);
       radio.setMute(!mute);
     }
     positions = newPos;

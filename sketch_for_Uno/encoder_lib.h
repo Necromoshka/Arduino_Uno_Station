@@ -7,18 +7,18 @@
 /// \base on https://www.pjrc.com/teensy/td_libs_Encoder.html#optimize
 /// for Uno or nano
 #include "Arduino.h"
-# ifndef ENCODER_H
-# define ENCODER_H
+#ifndef ENCODER_H
+#define ENCODER_H
 class Encoder
 {
   public:
+
     Encoder(uint8_t PinA, uint8_t PinB);
     long get_position(); //Позиция энкодера
     void set_position(long); //Установить переменную position
-    //   uint8_t rotated(); //В какую сторону произошло последнее вращение, 1 вправо 2 влево, 0 не вращался
-       void int0();
-      void int1();
-    // void update_B ();
+    void int0();
+    void int1();
+
   private:
 
     uint8_t _pin_a;
