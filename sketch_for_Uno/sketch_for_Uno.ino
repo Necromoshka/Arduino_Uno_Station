@@ -40,6 +40,7 @@
 #include "TEA5767.h"
 #include "encoder_lib.h"
 #include "pt2257_lib.h"
+
 //-----------------------End Include----------------------------------------------
 
 //-----------------------Define----------------------------------------------------
@@ -58,6 +59,8 @@
 #define i2c_lcd_address 0x27 //Адрес экрана
 #define coll 16 //Кол-во столбцов
 #define row 2 //Кол-во строк
+#define st_ee 0 //позиция в памяти станции
+#define vol_ee 1 //позиция в памяти станции
 
 //------------------------End Define-----------------------------------------------
 
@@ -146,10 +149,25 @@ void setup() {
   // myEnc.write(0);
 
   radio.init(); // Включаем чип
-  radio.setBandFrequency(FIX_BAND, FIX_STATION); // Устанавливаем частотный диаппазон и частоту
-  radio.setMono(mute); // включаем звук
-  
+  station = (int) rtc.eeprom_read(st_ee);
+  if (station < 1) station = 1;
+  if (station > 32) station = 32; 
+  radio.setBandFrequency(FIX_BAND, station); // Устанавливаем частотный диаппазон и частоту
+  volium = (int) rtc.eeprom_read(vol_ee);
+  if (volium <= 0)
+  {
+    volium = 0;
+    //radio.setMono(mute); // включаем звук
+  }
+  if (volium > 79) volium = 79;
+  if (volium > 0 || volium <= 79)
+  { 
   dpow.set_volium(volium);
+  radio.setMute(!mute);
+  }
+  //radio.setMono(mute); // включаем звук
+  
+  
   
   attachInterrupt(0, int0, CHANGE);
   attachInterrupt(1, int1, CHANGE);

@@ -6,6 +6,7 @@
 /// \base on http://playground.arduino.cc/Main/RotaryEncoders
 /// \base on https://www.pjrc.com/teensy/td_libs_Encoder.html#optimize
 /// for Uno or nano
+
 #include "encoder_lib.h"
 
 Encoder::Encoder(uint8_t PinA, uint8_t PinB): _pin_a ( PinA), _pin_b( PinB )
