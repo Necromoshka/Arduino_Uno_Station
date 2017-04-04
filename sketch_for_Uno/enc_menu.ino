@@ -32,3 +32,28 @@ void enc_menu_r()
   }
 }
 
+void enc_settings()
+{
+  bu_fl = true;
+  while (bu_fl)
+  {
+
+    debounce();
+
+  }
+}
+
+boolean enc_exit()
+{
+  bu_fl = true;
+  
+  while (bu_fl)
+  { 
+    
+
+    debounce();
+
+  }
+  return false;
+}
+

@@ -4,10 +4,10 @@
 /// \author Klimets Sergey
 /// \copyright Copyright (c) 2017 by Klimets Sergey.\n
 
-void print_lcd()
+void print_lcd(boolean fl_pr)
 {
   //-----------------------Год--------------------------
-  if (Data.yea != Data_old.yea)
+  if ((Data.yea != Data_old.yea) || fl_pr)
   {
     lcd.setCursor(0, 0);
     lcd.print("   ");
@@ -25,7 +25,7 @@ void print_lcd()
     lcd.print("/");
   }
   //--------------------------------------------Месяц--------------------------------
-  if (Data.mns != Data_old.mns)
+  if ((Data.mns != Data_old.mns)|| fl_pr)
   {
     lcd.setCursor(3, 0);
     lcd.print("   "); //Библиотека как то странно начинает работать если не заполнять место на экране куда будешь писать пробелами
@@ -43,7 +43,7 @@ void print_lcd()
     lcd.print("/");
   }
   //-------------------------------------------------День---------------------------------
-  if (Data.dd != Data_old.dd)
+  if ((Data.dd != Data_old.dd)|| fl_pr)
   {
     lcd.setCursor(6, 0);
     lcd.print("   ");
@@ -61,7 +61,7 @@ void print_lcd()
     lcd.printByte(255);
   }
   //-------------------------------------------------Температура--------------------------
-  if (Data.temp != Data_old.temp)
+  if ((Data.temp != Data_old.temp)|| fl_pr)
   {
     lcd.setCursor(9, 0);
     lcd.print("    ");
@@ -80,7 +80,7 @@ void print_lcd()
     lcd.print("C");
   }
   //----------------------------------------------------Влажность----------------------------
-  if (Data.hum != Data_old.hum)
+  if ((Data.hum != Data_old.hum)|| fl_pr)
   {
     lcd.setCursor(13, 0);
     lcd.print("   ");
@@ -98,7 +98,7 @@ void print_lcd()
     lcd.print("%");
   }
   //----------------------------------------------Час----------------------------------
-  if (Data.hh != Data_old.hh)
+  if ((Data.hh != Data_old.hh)|| fl_pr)
   {
     lcd.setCursor(0, 1);
     lcd.print("   ");
@@ -116,7 +116,7 @@ void print_lcd()
     lcd.print(":");
   }
   //--------------------------------------Минута----------------------------------
-  if (Data.mm != Data_old.mm)
+  if ((Data.mm != Data_old.mm)|| fl_pr)
   {
     lcd.setCursor(3, 1);
     lcd.print("   ");
@@ -134,7 +134,7 @@ void print_lcd()
     lcd.print(":");
   }
   //-----------------------------------------Секунда----------------------------------
-  if (Data.ss != Data_old.ss)
+  if ((Data.ss != Data_old.ss)|| fl_pr)
   {
     lcd.setCursor(6, 1);
     lcd.print("  ");
@@ -154,7 +154,7 @@ void print_lcd()
   //-----------------------------------------Для Радио-----------------------------------
 
   //-----------------------------------------Давление------------------------------------
-  if (Data.pres != Data_old.pres)
+  if ((Data.pres != Data_old.pres)|| fl_pr)
   {
     lcd.setCursor(13, 1);
     lcd.print("   ");

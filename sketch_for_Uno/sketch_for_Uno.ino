@@ -26,7 +26,7 @@
 /// \brief main file
 /// \author Klimets Sergey
 /// \copyright Copyright (c) 2017 by Klimets Sergey.\n
-/// \git Branch eeprom
+/// \git Branch settings
 
 
 
@@ -188,7 +188,7 @@ void loop() {
   }
 
   read_data(); //Считывание данных с датчика
-  print_lcd(); //Печатаем данные, но только новые,если данные не изменились не ечатаем
+  print_lcd(false); //Печатаем данные, но только новые,если данные не изменились не печатаем
   debounce(); //Проверяем не нажата ли кнопка
   read_button(); //Функция обработки нажатия кнопки
 

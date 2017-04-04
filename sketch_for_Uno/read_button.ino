@@ -5,30 +5,44 @@
 /// \copyright Copyright (c) 2017 by Klimets Sergey.\n
 
 void read_button()
-{
-  if (!bu_fl)
+{ 
+  
+  while (bu_fl)
   {
-    switch (men)
+    if (!bu_fl)
     {
-      case 0:
-        //       myEnc.write(0);
-        enc.set_position(0);
-        enc_menu_v();
-        bu_fl = true;
-        men++;
+      switch (men)
+      {
+        case 0:
+          enc.set_position(0);
+          enc_menu_v();
+          bu_fl = true;
+          men++;
 
-        break;
-      case 1:
-        //        myEnc.write(0);
-        enc.set_position(0);
-        enc_menu_r();
-        bu_fl = true;
-        men = 0;
-        setstation(station);
+          break;
+        case 1:
+          enc.set_position(0);
+          enc_menu_r();
+          bu_fl = true;
+          men++;
+          setstation(station);
 
-        break;
+          break;
 
+        case 2:
+          enc_settings();
+          bu_fl = true;
+          men++;
+          break;
+
+        case 3:
+          bu_fl = true;
+          bu_fl =  enc_exit();
+          men = 0;
+          break;
+
+      }
     }
   }
-}
 
+}
