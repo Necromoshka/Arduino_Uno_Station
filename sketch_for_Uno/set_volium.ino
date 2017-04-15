@@ -48,7 +48,7 @@ void set_volium()
       //lcd.print(volium);
 
       dpow.set_volium(volium);
-      rtc.eeprom_write(st_ee, (unsigned char) volium);
+   //   rtc.eeprom_write(vol_ee, (unsigned char) volium);
       radio.setMute(!mute);
     }
     positions = newPos;

@@ -155,11 +155,10 @@ void print_lcd()
 
   //-----------------------------------------Давление------------------------------------
   if (Data.pres != Data_old.pres)
-  {
-    lcd.setCursor(13, 1);
+  { 
     lcd.print("   ");
     lcd.setCursor(13, 1);
-    lcd.print(round(760 * Data.pres));
+    lcd.print(((round(Data.pres)*760)/101325)); // расчёт давления 
     Data_old.pres = Data.pres;
   }
 }

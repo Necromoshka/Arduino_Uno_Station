@@ -72,6 +72,7 @@ TEA5767 radio;//Радио чип TEA
 Encoder enc(pin_A,pin_B); //Энкодер
 pt2257 dpow; //Регулятор громкости
 
+
 volatile bool flag = true; //flag для часов
 volatile bool flag2 = true; //flag2 для датчика погоды
 volatile bool bu_fl = true; //bu_fl для кнопки на энкодере
@@ -117,8 +118,10 @@ unsigned long debounceDelay = 50;    // время необходимое для
 
 
 void setup() {
+  Serial.begin(9600);
+ // rtc.set_ee_address(0x57);
   // Only used once, then disabled
-  //rtc.set(0, 47, 21, 1, 27, 2, 17);
+ // rtc.set(0, 54, 20, 5, 14, 4, 17);
   //  RTCLib::set(byte second, byte minute, byte hour, byte dayOfWeek, byte dayOfMonth, byte month, byte year)
   dpow.init();
   lcd.init();
@@ -149,11 +152,11 @@ void setup() {
   // myEnc.write(0);
 
   radio.init(); // Включаем чип
-  station = (int) rtc.eeprom_read(st_ee);
+//  station = (int) rtc.eeprom_read(st_ee);
   if (station < 1) station = 1;
   if (station > 32) station = 32; 
   radio.setBandFrequency(FIX_BAND, station); // Устанавливаем частотный диаппазон и частоту
-  volium = (int) rtc.eeprom_read(vol_ee);
+ // volium = (int) rtc.eeprom_read(vol_ee);
   if (volium <= 0)
   {
     volium = 0;
@@ -162,6 +165,7 @@ void setup() {
   if (volium > 79) volium = 79;
   if (volium > 0 || volium <= 79)
   { 
+    volium = 79;
   dpow.set_volium(volium);
   radio.setMute(!mute);
   }
