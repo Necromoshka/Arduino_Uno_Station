@@ -13,12 +13,12 @@ void debounce()
   }
   if ((millis() - lastDebounceTime) > debounceDelay) //сравниваем время прошедшее с момента нажатия с временем задержки
   {
-    if (reading != buttonState) 
+    if (reading != buttonState)
     {
       buttonState = reading;
       if (buttonState == LOW)
       {
-        bu_fl = false; // Флаг сигнализирует о том, что кнопка была нажата. 
+        bu_fl = false; // Флаг сигнализирует о том, что кнопка была нажата.
       }
     }
   }

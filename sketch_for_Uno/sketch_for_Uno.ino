@@ -61,6 +61,7 @@
 #define row 2 //Кол-во строк
 #define st_ee 0 //позиция в памяти станции
 #define vol_ee 1 //позиция в памяти станции
+#define alt 2 //относительная корректировка давления
 
 //------------------------End Define-----------------------------------------------
 
@@ -69,17 +70,17 @@ uRTCLib rtc; //Часы
 BME280I2C bme; //Датчик погоды
 LiquidCrystal_I2C lcd(i2c_lcd_address, coll, row);//Экран
 TEA5767 radio;//Радио чип TEA
-Encoder enc(pin_A,pin_B); //Энкодер
+Encoder enc(pin_A, pin_B); //Энкодер
 pt2257 dpow; //Регулятор громкости
 
 
-volatile bool flag = true; //flag для часов
-volatile bool flag2 = true; //flag2 для датчика погоды
-volatile bool bu_fl = true; //bu_fl для кнопки на энкодере
+volatile boolean flag = true; //flag для часов
+volatile boolean flag2 = true; //flag2 для датчика погоды
+volatile boolean bu_fl = true; //bu_fl для кнопки на энкодере
 long positions  = 0;//----------------------------------------------------------------???????????????????
 uint8_t volium = 0; //Начальный уровень громкости при 1 -м заходе в меню
-int station = 1; //Начальная станция при 1 - м заходе в меню
-bool mute = true; //Вкл выкл звук на TEA
+unsigned int station = 1; //Начальная станция при 1 - м заходе в меню
+boolean mute = true; //Вкл выкл звук на TEA
 
 struct data //Все считываемые данные (BME + DS)
 {
@@ -109,8 +110,8 @@ uint16_t update_time_rtc = 1000; // время обнавления часов
 uint16_t update_time_bme = 5000; // время обнавления датчика погоды
 unsigned long time_millis_rtc; // Время отсчитываемое для обновления часов
 unsigned long time_millis_bme; // Время отсчитываемое для обновления датчика погоды
-int buttonState;             // Текущее состояние кнопки
-int lastButtonState = HIGH;   // Предидущие состояние кнопки
+boolean buttonState;             // Текущее состояние кнопки
+boolean  lastButtonState = HIGH;   // Предидущие состояние кнопки
 unsigned long lastDebounceTime = 0;  // Время с момента последнего нажатия
 unsigned long debounceDelay = 50;    // время необходимое для устранения дребезга (можно увеличить если плохо работает)
 
@@ -118,10 +119,10 @@ unsigned long debounceDelay = 50;    // время необходимое для
 
 
 void setup() {
-  Serial.begin(9600);
- // rtc.set_ee_address(0x57);
+ // Serial.begin(9600);
+  // rtc.set_ee_address(0x57);
   // Only used once, then disabled
- // rtc.set(0, 54, 20, 5, 14, 4, 17);
+  // rtc.set(0, 54, 20, 5, 14, 4, 17);
   //  RTCLib::set(byte second, byte minute, byte hour, byte dayOfWeek, byte dayOfMonth, byte month, byte year)
   dpow.init();
   lcd.init();
@@ -132,7 +133,7 @@ void setup() {
 
   //pinMode(pin_A, INPUT);  //pin_B
   pinMode(pin_C, INPUT);  //pin_C Button on encoder
- // pinMode (pin_B, INPUT); //pin_B
+  // pinMode (pin_B, INPUT); //pin_B
   digitalWrite(pin_C, HIGH); //Подтягиваем кнопку к +5В
 
   while (!bme.begin()) //Ждём включение датчика (Если нет то сообщаем об этом)
@@ -152,11 +153,11 @@ void setup() {
   // myEnc.write(0);
 
   radio.init(); // Включаем чип
-//  station = (int) rtc.eeprom_read(st_ee);
+  //  station = (int) rtc.eeprom_read(st_ee);
   if (station < 1) station = 1;
-  if (station > 32) station = 32; 
+  if (station > 32) station = 32;
   radio.setBandFrequency(FIX_BAND, station); // Устанавливаем частотный диаппазон и частоту
- // volium = (int) rtc.eeprom_read(vol_ee);
+  // volium = (int) rtc.eeprom_read(vol_ee);
   if (volium <= 0)
   {
     volium = 0;
@@ -164,15 +165,15 @@ void setup() {
   }
   if (volium > 79) volium = 79;
   if (volium > 0 || volium <= 79)
-  { 
+  {
     volium = 79;
-  dpow.set_volium(volium);
-  radio.setMute(!mute);
+    dpow.set_volium(volium);
+    radio.setMute(!mute);
   }
   //radio.setMono(mute); // включаем звук
-  
-  
-  
+
+
+
   attachInterrupt(0, int0, CHANGE);
   attachInterrupt(1, int1, CHANGE);
 }
