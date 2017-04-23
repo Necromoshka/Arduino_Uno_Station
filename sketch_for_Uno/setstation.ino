@@ -105,7 +105,7 @@ void setstation(int st)
       radio.setFrequency(10790);
       break;
   }
-  // rtc.eeprom_write(st_ee, (unsigned char) st);
+  rtc.eeprom_write(st_ee, (unsigned char) st);
   debounce();
 }
 

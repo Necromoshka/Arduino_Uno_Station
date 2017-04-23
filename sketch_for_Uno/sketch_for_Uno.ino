@@ -60,7 +60,7 @@
 #define coll 16 //Кол-во столбцов
 #define row 2 //Кол-во строк
 #define st_ee 0 //позиция в памяти станции
-#define vol_ee 1 //позиция в памяти станции
+#define vol_ee 0 //позиция в памяти станции
 #define alt 2 //относительная корректировка давления
 
 //------------------------End Define-----------------------------------------------
@@ -78,8 +78,8 @@ volatile boolean flag = true; //flag для часов
 volatile boolean flag2 = true; //flag2 для датчика погоды
 volatile boolean bu_fl = true; //bu_fl для кнопки на энкодере
 long positions  = 0;//----------------------------------------------------------------???????????????????
-uint8_t volium = 0; //Начальный уровень громкости при 1 -м заходе в меню
-unsigned int station = 1; //Начальная станция при 1 - м заходе в меню
+uint8_t volium; //Начальный уровень громкости при 1 -м заходе в меню
+unsigned int station; //Начальная станция при 1 - м заходе в меню
 boolean mute = true; //Вкл выкл звук на TEA
 
 struct data //Все считываемые данные (BME + DS)
@@ -119,7 +119,7 @@ unsigned long debounceDelay = 50;    // время необходимое для
 
 
 void setup() {
- // Serial.begin(9600);
+  //  Serial.begin(9600);
   // rtc.set_ee_address(0x57);
   // Only used once, then disabled
   // rtc.set(0, 54, 20, 5, 14, 4, 17);
@@ -144,6 +144,7 @@ void setup() {
     lcd.print("BME280 sensor!");
     delay(1000);
   }
+  rtc.set_ee_address(0x50);
   ///////////////////////////////////// Пишем на экране, что радио включено.
   lcd.setCursor(9, 1);
   lcd.print("on");
@@ -153,26 +154,26 @@ void setup() {
   // myEnc.write(0);
 
   radio.init(); // Включаем чип
-  //  station = (int) rtc.eeprom_read(st_ee);
+  station = (unsigned int) rtc.eeprom_read(st_ee);
   if (station < 1) station = 1;
   if (station > 32) station = 32;
   radio.setBandFrequency(FIX_BAND, station); // Устанавливаем частотный диаппазон и частоту
-  // volium = (int) rtc.eeprom_read(vol_ee);
+  setstation(station);
+  volium = (uint8_t) rtc.eeprom_read(vol_ee);
   if (volium <= 0)
   {
     volium = 0;
-    //radio.setMono(mute); // включаем звук
+    radio.setMute(mute); // вЫключаем звук
   }
   if (volium > 79) volium = 79;
   if (volium > 0 || volium <= 79)
   {
-    volium = 79;
     dpow.set_volium(volium);
     radio.setMute(!mute);
   }
   //radio.setMono(mute); // включаем звук
 
-
+  
 
   attachInterrupt(0, int0, CHANGE);
   attachInterrupt(1, int1, CHANGE);
@@ -196,5 +197,5 @@ void loop() {
   print_lcd(); //Печатаем данные, но только новые,если данные не изменились не ечатаем
   debounce(); //Проверяем не нажата ли кнопка
   read_button(); //Функция обработки нажатия кнопки
-
+  Serial.println(rtc.eeprom_read(vol_ee));
 }
